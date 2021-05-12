@@ -1,0 +1,56 @@
+pipeline {
+ agent {
+     node {
+         label 'main'
+     }
+ }
+ tools {
+
+     maven 'maven3.6'
+     jdk 'java'
+ }
+stages {
+    stage ('checkout code from SCM'){
+     steps{   
+
+         git branch: 'main', url: 'https://github.com/spring-projects/achistar.git'
+
+      }
+    }
+    stage ('Cleaning'){
+        steps{
+            sh """
+            mvn clean
+            """
+        }
+
+    }
+
+    stage ('Code Compile'){
+        steps{
+            sh """
+            mvn compile
+            """
+        }
+
+    }
+    
+     stage ('Run unit test'){
+        steps{
+            sh """
+            mvn test
+            """
+        }
+
+    }
+    stage ('packaging '){
+        steps{
+            sh """
+            mvn package
+            """
+        }
+
+    }
+
+}
+}
