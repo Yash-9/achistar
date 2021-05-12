@@ -1,7 +1,7 @@
   
 pipeline{
      agent{
-     label 'origin'
+     label 'master'
      }
 	 tools{
      maven 'mymaven'
@@ -10,7 +10,7 @@ pipeline{
 	 stages{
 	   stage('checkout the code'){
 	       steps{
-		     git branch: 'main' , url: 'https://github.com/Yash-9/archistar.git'
+		     git credentialsId: 'devops_git' , url: 'https://github.com/Yash-9/archistar.git'
 		   }
 	   
 	   }
